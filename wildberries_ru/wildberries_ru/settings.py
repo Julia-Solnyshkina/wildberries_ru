@@ -58,9 +58,10 @@ DOWNLOAD_DELAY = 1
 
 # Configure item pipelines
 # See https://docs.scrapy.org/en/latest/topics/item-pipeline.html
-#ITEM_PIPELINES = {
-#    "wildberries_ru.pipelines.WildberriesRuPipeline": 300,
-#}
+ITEM_PIPELINES = {
+    "wildberries_ru.pipelines.WildberriesRuPipeline": 200,
+    "wildberries_ru.pipelines.DualExcelPipeline": 300,
+}
 
 # Enable and configure the AutoThrottle extension (disabled by default)
 # See https://docs.scrapy.org/en/latest/topics/autothrottle.html
