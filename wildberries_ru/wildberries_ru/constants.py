@@ -3,7 +3,6 @@ SEARCH_TERMS = [
 ]
 
 HEADERS = {
-    'Host': 'api-ios.wildberries.ru',
     'User-Agent': 'Wildberries/7.5.4000 (RU.WILDBERRIES.MOBILEAPP; build:16316863; iOS 26.2.1) Alamofire/5.9.1',
     'Devicename': 'iOS, iPhone17,1',
     'Wb-Applanguage': 'ru',

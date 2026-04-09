@@ -21,10 +21,13 @@ class WildberriesParser:
         sizes = jo.get('sizes', [])
         for size in sizes:
             price = size.get('price')
-            stocks = size.get('stocks', [])
+            stocks = size.get('stocks') or []
             if price and price.get('product') and stocks:
-                product = size
-                return product
+                return {
+                    "price": price,
+                    "stocks": stocks
+                }
+        return None
 
     def get_price(self, product):
         return {'price': product.get('price')['product'] / 100}
@@ -37,11 +40,12 @@ class WildberriesParser:
 
     def get_sizes(self, jo):
         sizes = jo.get('sizes', [])
-        sizes = [size.get('origName', '') for size in sizes if size.get('name')]
+        sizes = [size.get('origName', '') for size in sizes if size.get('origName')]
         return {'sizes': ', '.join(sizes)}
 
     def get_quantity(self, product):
-        quantity = product.get('qty', 0)
+        stocks = product.get('stocks', []) or []
+        quantity = stocks[0].get('qty', 0)
         return {'quantity': quantity}
 
     def get_reviews(self, jo):
@@ -116,7 +120,7 @@ class WildberriesParser:
 
 class WildberriesSpider(scrapy.Spider, WildberriesParser):
     name = "wildberries_ru"
-    allowed_domains = ["wildberries.ru", "api-ios.wildberries.ru"]
+    allowed_domains = ["wildberries.ru", "api-ios.wildberries.ru", "wbbasket.ru"]
     source = "https://www.wildberries.ru"
     custom_settings = {
         "DOWNLOAD_DELAY": 1,
